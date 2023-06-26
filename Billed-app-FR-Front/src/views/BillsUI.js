@@ -19,14 +19,14 @@ const row = (bill) => {
 };
 
 const rows = (data) => {
-  let retrieveData;
-  const regexDate =
-    /^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/i;
+  // let retrieveData;
+  // const regexDate =
+  //   /^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/i;
 
-  retrieveData = data.map((date) => date.date);
+  // retrieveData = data.map((date) => date.date);
 
-  const antiChrono = (a, b) => (a < b ? 1 : -1);
-  const datesSorted = [...retrieveData].sort(antiChrono);
+  // const antiChrono = (a, b) => (a < b ? 1 : -1);
+  // const datesSorted = [...retrieveData].sort(antiChrono);
   // console.log("retrieveData", retrieveData, "datesSorted", datesSorted);
   return data && data.length ? data.map((bill) => row(bill)).join("") : "";
 };
