@@ -1,6 +1,7 @@
 /**
  * @jest-environment jsdom
  */
+
 import userEvent from "@testing-library/user-event";
 import mockStore from "../__mocks__/store";
 import { localStorageMock } from "../__mocks__/localStorage";
@@ -11,7 +12,8 @@ import Router from "../app/Router";
 import formatPicture from "../containers/NewBill";
 
 import { fireEvent, screen, waitFor } from "@testing-library/dom";
-
+// jest.mock("../app/Store", () => mockStore)
+window.alert = jest.fn();
 describe("Given I am connected as an employee", () => {
   describe("When I am on NewBill Page", () => {
     test("Then the mail icon in vertical layout should be highlighted", () => {
@@ -48,6 +50,7 @@ describe("Given I am connected as an employee", () => {
         store: mockStore,
         localStorage: window.localStorage,
       });
+
       const handleChangeFile = jest.fn((e) => newBill.handleChangeFile(e));
       const inputFile = screen.getByTestId("file");
       const img = new File(["img"], "image.png", { type: "image/png" });
@@ -56,12 +59,13 @@ describe("Given I am connected as an employee", () => {
       await waitFor(() => {
         userEvent.upload(inputFile, img);
       });
-
+      console.log(document.body);
       expect(handleChangeFile).toBeCalled();
       expect(screen.getAllByText("Billed")).toBeTruthy();
 
       expect(formatPicture).not.toBe(0);
     });
+    console.log(document.body);
     test("Then i can choose to upload a file with incorrect extension", async () => {
       Object.defineProperty(window, "localStorage", {
         value: localStorageMock,

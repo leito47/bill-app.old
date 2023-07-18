@@ -13,7 +13,7 @@ import mockStore from "../__mocks__/store";
 import { bills } from "../fixtures/bills";
 import router from "../app/Router";
 
-jest.mock("../app/store", () => mockStore);
+jest.mock("../app/store.js", () => mockStore);
 
 describe("Given I am connected as an Admin", () => {
   describe("When I am on Dashboard page, there are bills, and there is one pending", () => {
@@ -167,7 +167,6 @@ describe("Given I am connected as an Admin", () => {
         localStorage: window.localStorage,
       });
       document.body.innerHTML = DashboardUI({ data: { bills } });
-
       const handleShowTickets1 = jest.fn((e) =>
         dashboard.handleShowTickets(e, bills, 1)
       );
@@ -179,8 +178,7 @@ describe("Given I am connected as an Admin", () => {
       const iconEdit = screen.getByTestId("open-bill47qAXb6fIm2zOKkLzMro");
       userEvent.click(iconEdit);
       userEvent.click(iconEdit);
-      const bigBilledIcon = screen.queryByTestId("big-billed-icon");
-      expect(bigBilledIcon).toBeTruthy();
+      expect(screen.getByTestId(`dashboard-form`)).toBeTruthy();
     });
   });
 

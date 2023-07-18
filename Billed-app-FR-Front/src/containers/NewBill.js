@@ -21,13 +21,12 @@ export default class NewBill {
     e.preventDefault();
 
     const file = this.document.querySelector(`input[data-testid="file"]`)
-      .files[0];
     const filePath = e.target.value.split(/\\/g);
     const fileName = filePath[filePath.length - 1];
     const extensionFile = filePath[filePath.length - 1].split(".").pop();
     const formData = new FormData();
     const email = JSON.parse(localStorage.getItem("user")).email;
-    console.log("extensionFile", extensionFile);
+
     if (
       extensionFile === "jpeg" ||
       extensionFile === "jpg" ||
@@ -45,14 +44,14 @@ export default class NewBill {
           },
         })
         .then(({ fileUrl, key }) => {
-          console.log(fileUrl);
           this.billId = key;
           this.fileUrl = fileUrl;
           this.fileName = fileName;
+          console.log(fileUrl);
         })
         .catch((error) => console.error(error));
     } else {
-      alert(" Veuillez sélectionner un fichier au format JPEG, JPG ou PNG.");
+      alert(" Veuillez sélectionner un fichier au format .JPEG, .JPG ou .PNG.");
       e.target.value = null;
     }
   };
